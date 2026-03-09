@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C3PP-website</title>
+    <meta
+        name="description"
+        content="C3PP is a small object-oriented extension for C3, implemented as a source-to-source compiler."
+    >
+    <script>document.documentElement.classList.add("js");</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap"
+        rel="stylesheet"
+    >
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page-shell">
+        <header class="topbar">
+            <a class="brand" href="#top" aria-label="C3PP home">
+                <span class="brand-mark">C3</span>
+                <span class="brand-mark brand-mark-accent">PP</span>
+            </a>
+            <nav class="nav">
+                <a href="#features">Features</a>
+                <a href="#pipeline">Pipeline</a>
+                <a href="#workflow">Workflow</a>
+                <a href="#limits">Limits</a>
+            </nav>
+        </header>
+
+        <main id="top">
+            <section class="hero reveal">
+                <div class="hero-copy">
+                    <p class="eyebrow">C3PP-website</p>
+                    <h1>Object-oriented syntax for C3 without pretending to be a new runtime.</h1>
+                    <p class="hero-text">
+                        C3PP adds classes, constructors, inheritance sugar, and companion headers,
+                        then lowers everything back into plain C3 structs and functions.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#workflow">See the workflow</a>
+                        <a class="button button-secondary" href="#code">View generated shape</a>
+                    </div>
+                    <ul class="hero-stats" aria-label="Project highlights">
+                        <li>
+                            <strong>Source-to-source</strong>
+                            <span>No hidden VM or runtime rewrite.</span>
+                        </li>
+                        <li>
+                            <strong>Header aware</strong>
+                            <span>Generates `.c3i` companions beside `.c3pp`.</span>
+                        </li>
+                        <li>
+                            <strong>Intentionally small</strong>
+                            <span>Focused on practical syntax sugar today.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="hero-panel">
+                    <div class="terminal-card">
+                        <div class="terminal-bar">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="terminal-lines">
+                            <p><span class="prompt">$</span> .\c3++c.cmd .\examples\animals.c3pp --header</p>
+                            <p class="terminal-ok">generated: .\examples\animals.generated.c3</p>
+                            <p class="terminal-ok">header: .\examples\animals.c3i</p>
+                            <p class="terminal-ok">output: .\examples\animals.exe</p>
+                        </div>
+                    </div>
+                    <div class="badge-cloud" aria-hidden="true">
+                        <span>class</span>
+                        <span>extends</span>
+                        <span>new</span>
+                        <span>super</span>
+                        <span>.c3i</span>
+                    </div>
+                </div>
+            </section>
+
+            <section id="features" class="section reveal">
+                <div class="section-heading">
+                    <p class="eyebrow">Core features</p>
+                    <h2>Small surface area, clear lowering rules.</h2>
+                </div>
+                <div class="feature-grid">
+                    <article class="feature-card">
+                        <h3>Class syntax</h3>
+                        <p>Declare `class Name { ... }` blocks with fields and methods in one place.</p>
+                    </article>
+                    <article class="feature-card">
+                        <h3>Single inheritance</h3>
+                        <p>Use `class Child extends Parent` and embed the base struct through `self.super`.</p>
+                    </article>
+                    <article class="feature-card">
+                        <h3>Constructor sugar</h3>
+                        <p>Define `fn void init(...)` and call `new ClassName(...)` for heap allocation.</p>
+                    </article>
+                    <article class="feature-card">
+                        <h3>Header generation</h3>
+                        <p>Emit companion `.c3i` declarations from `.c3pp` sources or lower standalone `.c3i` inputs.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section id="pipeline" class="section pipeline reveal">
+                <div class="section-heading">
+                    <p class="eyebrow">Compiler pipeline</p>
+                    <h2>Write concise syntax. Ship regular C3.</h2>
+                </div>
+                <div class="pipeline-grid">
+                    <article class="pipeline-step">
+                        <span>01</span>
+                        <h3>Author in C3PP</h3>
+                        <p>Use classes, methods, `super`, `new`, and optional declaration-only headers.</p>
+                    </article>
+                    <article class="pipeline-step">
+                        <span>02</span>
+                        <h3>Lower to C3</h3>
+                        <p>Classes become structs, methods become namespaced functions, constructors become helpers.</p>
+                    </article>
+                    <article class="pipeline-step">
+                        <span>03</span>
+                        <h3>Compile natively</h3>
+                        <p>The generated output is handed off to `c3c`, keeping the backend compiler in charge.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section id="code" class="section code-section reveal">
+                <div class="section-heading">
+                    <p class="eyebrow">Generated shape</p>
+                    <h2>The syntax sugar stays honest.</h2>
+                </div>
+                <div class="code-switcher" role="tablist" aria-label="Code examples">
+                    <button
+                        class="tab is-active"
+                        type="button"
+                        role="tab"
+                        aria-selected="true"
+                        aria-controls="source-panel"
+                        data-target="source-panel"
+                    >
+                        C3PP source
+                    </button>
+                    <button
+                        class="tab"
+                        type="button"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="output-panel"
+                        data-target="output-panel"
+                    >
+                        Lowered C3
+                    </button>
+                </div>
+                <div class="code-panels">
+                    <pre id="source-panel" class="code-panel is-active" role="tabpanel"><code>class Dog extends Animal {
+    int age;
+
+    fn void init(String name, int age) {
+        super.init(name);
+        self.age = age;
+    }
+
+    fn String speak() {
+        return "woof";
+    }
+}</code></pre>
+                    <pre id="output-panel" class="code-panel" role="tabpanel" hidden><code>struct Dog
+{
+    Animal super;
+    int age;
+}
+
+fn void Dog.init(Dog* self, String name, int age)
+{
+    self.super.init(name);
+    self.age = age;
+}
+
+fn Dog* new_Dog(String name, int age)
+{
+    Dog* self = std::core::mem::new(Dog);
+    self.init(name, age);
+    return self;
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="workflow" class="section workflow reveal">
+                <div class="section-heading">
+                    <p class="eyebrow">Workflow</p>
+                    <h2>Useful commands, ready to paste.</h2>
+                </div>
+                <div class="command-list">
+                    <article class="command-card">
+                        <div class="command-head">
+                            <h3>Build the compiler</h3>
+                            <button class="copy-button" type="button" data-copy="c3c build c3ppc">Copy</button>
+                        </div>
+                        <pre><code>c3c build c3ppc</code></pre>
+                    </article>
+                    <article class="command-card">
+                        <div class="command-head">
+                            <h3>Compile a C3PP file</h3>
+                            <button class="copy-button" type="button" data-copy=".\c3++c.cmd .\examples\animals.c3pp">Copy</button>
+                        </div>
+                        <pre><code>.\c3++c.cmd .\examples\animals.c3pp</code></pre>
+                    </article>
+                    <article class="command-card">
+                        <div class="command-head">
+                            <h3>Emit generated C3 only</h3>
+                            <button class="copy-button" type="button" data-copy=".\c3++c.cmd .\examples\animals.c3pp --emit-only">Copy</button>
+                        </div>
+                        <pre><code>.\c3++c.cmd .\examples\animals.c3pp --emit-only</code></pre>
+                    </article>
+                    <article class="command-card">
+                        <div class="command-head">
+                            <h3>Write a companion header</h3>
+                            <button class="copy-button" type="button" data-copy=".\c3++c.cmd .\examples\animals.c3pp --header">Copy</button>
+                        </div>
+                        <pre><code>.\c3++c.cmd .\examples\animals.c3pp --header</code></pre>
+                    </article>
+                </div>
+            </section>
+
+            <section id="limits" class="section limits reveal">
+                <div class="section-heading">
+                    <p class="eyebrow">Current limits</p>
+                    <h2>Deliberately narrow while the lowering model settles.</h2>
+                </div>
+                <div class="limits-grid">
+                    <article>
+                        <h3>Not implemented yet</h3>
+                        <p>No virtual dispatch, no interfaces, and no access modifiers.</p>
+                    </article>
+                    <article>
+                        <h3>Inheritance model</h3>
+                        <p>Inherited fields are reached through `self.super`, not flattened field access.</p>
+                    </article>
+                    <article>
+                        <h3>Parser posture</h3>
+                        <p>The parser stays intentionally small and expects reasonably formatted source.</p>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer reveal">
+            <p>C3PP-website is a static landing page for the C3++ compiler project.</p>
+            <a href="#top">Back to top</a>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
